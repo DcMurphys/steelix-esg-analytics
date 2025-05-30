@@ -51,25 +51,40 @@ During feature exploration, the focus shifts to analyzing the behavior and distr
 The exploratory data analysis conducted through visualizations reveals several key insights into the dataset's structure and behavior. 
 
 **Question 1: What were the trends in energy and power factors during 2018?**
+
+![png](assets/Power_factors_exploratory.png)
+
 * Usage_kWh showed a decline in mid-year followed by a rise toward the end.
 * Lagging_Current_Power_Factor declined until September, then sharply increased.
 * Leading_Current_Power_Factor remained stable but dipped significantly in November.
 * Reactive power values exhibited seasonal fluctuations, with noticeable peaks in May and November.
   
 **Question 2: What was the trend of CO2 emissions throughout 2018?**
+
+![png](assets/CO2_exploratory.png)
+
 * CO2(tCO2) levels were highest at the beginning and end of the year, coinciding with winter months.
 * Levels stabilized at a lower concentration from May to November, showing a clear seasonal pattern.
 
 **Question 3: How was energy usage distributed across weekdays, week status, and load types?**
+
+![png](assets/Datetime_exploratory.png)
+
 * Higher consumption occurred on weekdays compared to weekends.
 * Medium loads were the most common, but maximum loads corresponded to the highest usage levels.
 * Weekends and Sundays, in particular, showed significantly lower consumption and more outliers.
 
 **Question 4: How does energy usage correlate with time of day (NSM)?**
+
+![png](assets/Energy_usage_vs_time_of_day_exploratory.png)
+
 * Energy usage followed a strong diurnal pattern, rising in the morning, peaking during working hours, and dropping in the evening.
 * A sharp decline around noon indicated a lunch break, reinforcing the operational link between time and demand.
 
 **Question 5: What are the correlations among numerical features?**
+
+![png](assets/Correlation_matrix_heatmap.png)
+
 * Usage_kWh and CO2(tCO2) shared a near-perfect correlation (≈0.99), reflecting the environmental impact of energy use.
 * Lagging_Current_Reactive.Power_kVarh also had strong positive correlations with both energy usage and emissions, suggesting its role in influencing operational loads.
 
@@ -135,9 +150,21 @@ This structure is used consistently for both the Usage_conv_model and CO2_conv_m
 This structure is used consistently for both the Usage_conv_model and CO2_conv_model, allowing the model to learn from historical sequences and generalize to future patterns in energy and emissions data. The layered configuration is carefully chosen to balance model complexity, generalization, and computational performance.
 
 ## Analysis of Visualization
+
+![png](assets/Seasonal_naive_usage_kwh_analysis.png)
+
+![png](assets/Seasonal_naive_CO2_analysis.png)
+
+![png](assets/Convolutional_usage_kwh_analysis.png)
+
+![png](assets/Convolutional_CO2_analysis.png)
+
 The visualization of forecast results for both Usage_kWh and CO2(tCO2) reveals notable differences between the Seasonal Naive and Convolutional models. The Seasonal Naive model, relying solely on repeated historical patterns, produces forecasts that exhibit rigid periodicity and often miss subtle shifts or anomalies in the actual test data. While it performs reasonably well in capturing coarse seasonal trends, its static nature limits its responsiveness to irregular variations. In contrast, the Convolutional Neural Network (CNN) model demonstrates a much closer alignment with the true values in the testing set. For Usage_kWh, the CNN effectively tracks both broad trends and short-term fluctuations, showing smoother and more dynamic forecast lines that adapt to recent changes in the data. Similarly, for CO2(tCO2), the CNN captures emission trends more precisely, with its predictions maintaining consistent proximity to actual values throughout the test period. Overall, the visual comparison confirms that the CNN model significantly outperforms the baseline by offering enhanced flexibility, sharper temporal resolution, and improved fidelity in both energy consumption and emission forecasting.
 
 ## Analysis of Root Mean Squared Error (RMSE) Results  
+
+![png](assets/RMSE_comparison_analysis.png)
+
 The RMSE evaluation provides a quantitative assessment of forecasting accuracy for both Usage_kWh and CO2(tCO2) using the Seasonal Naive and Convolutional models. As expected, the Seasonal Naive model yields higher RMSE values for both targets, reflecting its limitations in capturing nuanced patterns and sudden changes in the time series. Its reliance on rigid seasonal repetition results in forecasts that deviate significantly from the actual data, particularly during non-repetitive or irregular intervals. In contrast, the Convolutional Neural Network model achieves substantially lower RMSE scores, demonstrating its superior ability to learn complex temporal relationships and generalize beyond simple seasonality. For Usage_kWh, the CNN delivers a tighter fit to observed energy consumption values, while for CO2(tCO2), it consistently reduces error margins across the test period. This RMSE comparison not only confirms the improved predictive power of the CNN architecture but also validates its effectiveness in real-world industrial forecasting scenarios where temporal variability is prominent.
 
 # Conclusion From This Project
